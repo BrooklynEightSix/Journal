@@ -5,7 +5,7 @@ class Expense extends Component {
         super()
         this.state = {
             item: '',
-            price: '$10000000'
+            price: 0.00
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -30,6 +30,7 @@ class Expense extends Component {
                 <h1>EXPENSE</h1>
                 <form onSubmit={this.onSubmit}>
                     <input type='text' name='item' placeholder='item' value={this.state.item} onChange={this.onChange}/>
+                    <input type='float' name='price' placeholder='price' value={this.state.price} onChange={this.onChange}/>
                     <button>Submit</button>
                 </form>
                 
