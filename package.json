@@ -2,15 +2,24 @@
   "name": "journal",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">= 7.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "start-dev": "webpack -w &amp; nodemon index.js"
+    "postinstall": "touch secrets.js",
+    "seed": "node script/seed.js",
+    "start": "node server",
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & VESNA_IS_AWESOME='true' npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public",
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/merlinmart-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require ignore-styles --compilers js:babel-register",
+    "test-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/merlinmart-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/**/*.spec.js --compilers js:babel-register --require ignore-styles -w",
+    "test-client-watch": "NODE_ENV='test' mocha ./client/**/**/*.spec.js --compilers js:babel-register  --require ignore-styles -w"
+    
   },
   "repository": {
     "type": "git",

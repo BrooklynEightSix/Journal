@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
-class Expense extends Component {
+
+class ExpenseForm extends Component {
     constructor(){
         super()
         this.state = {
@@ -25,6 +27,7 @@ class Expense extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <h1>EXPENSE</h1>
@@ -39,4 +42,4 @@ class Expense extends Component {
     }
 }
 
-export default Expense;
+export default ExpenseForm

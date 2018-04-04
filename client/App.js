@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import Expense from './components/Expense';
+import React from 'react'
 
-class App extends Component {
-    render() {
-        return (
-            <div>
-                <Expense />
-            </div>
-        );
-    }
+import {Navbar} from './components'
+import Routes from './routes'
+
+
+const App = () => {
+  return (
+    <div>
+      <Navbar />
+      <Routes />
+    </div>
+  )
 }
 
-export default App;
+export default App
