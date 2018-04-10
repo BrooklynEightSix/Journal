@@ -1,8 +1,8 @@
-//import ADD_ITEM from '../actions/expenseActions'
-//action type
+
+//**Action type
 const ADD_ITEM = 'ADD_ITEM';
 
-let itemState = {
+let initialState = {
     // items:{'item1'10.15, 'item2': 30.40},
     items:[{item: 'item1', price: 10.15},{item: 'item2', price: 20.20}],
     item: {}
@@ -11,13 +11,13 @@ let itemState = {
 //     elem.item
 //     elem.price
 // })
-//action creator
+//**Action creator
 const addItem = (item)=>{
     type:ADD_ITEM,
     item
 }
 
-export default function dummyReducer (state=itemState, action) {
+export default function dummyReducer (state=initialState, action) {
     switch(action.type){
         // case ADD_ITEM:
         //     console.log('working??')

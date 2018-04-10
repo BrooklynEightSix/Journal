@@ -41,5 +41,33 @@ class ExpenseForm extends Component {
         );
     }
 }
+// const ExpenseForm = ()=> {
+//     return (
+//             <div>
+//                 <h1>EXPENSE</h1>
+//                 <form >
+//                     <input type='text' name='item' placeholder='item' value={this.state.item} onChange={this.onChange}/>
+//                     <input type='float' name='price' placeholder='price' value={this.state.price} onChange={this.onChange}/>
+//                     <button>Submit</button>
+//                 </form>
+                
+//             </div>
+//         );
+// }
+
+// const mapToState = (state) =>{
+// return {}
+// }
+
+// const mapDispatch = (dispatch)=>{
+//     return {
+//         handleSubmit (evt) {
+//         evt.preventDefault()
+    
+//         dispatch()
+//         }
+//     }
+// }
+// export default connect(mapToState,mapDispatch)(ExpenseForm)
 
 export default ExpenseForm

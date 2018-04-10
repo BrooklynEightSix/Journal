@@ -19,7 +19,6 @@
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/merlinmart-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require ignore-styles --compilers js:babel-register",
     "test-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/merlinmart-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/**/*.spec.js --compilers js:babel-register --require ignore-styles -w",
     "test-client-watch": "NODE_ENV='test' mocha ./client/**/**/*.spec.js --compilers js:babel-register  --require ignore-styles -w"
-    
   },
   "repository": {
     "type": "git",
@@ -62,6 +61,7 @@
     "redux-persist": "^5.4.0",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
+    "sequelize-cli": "^4.0.0",
     "socket.io": "^2.0.3",
     "volleyball": "^1.4.1"
   },
