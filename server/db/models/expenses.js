@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Expense = db.define('expense', {
+const Expenses = db.define('expense', {
   item: {
     type: Sequelize.STRING,
     allowNull: false
@@ -12,4 +12,4 @@ const Expense = db.define('expense', {
   }
 })
 
-module.exports = Expense
+module.exports = Expenses
