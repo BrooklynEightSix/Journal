@@ -20,17 +20,17 @@ const addItem = (item)=>{
     item
 }
 
-export const addItem = (user, item, price) =>
+export const addExpenseItem = (user, item, price) =>
     dispatch => 
         axios.post(`/api/expense/add`, {user, item, price})
         .then(res=>{
             dispatch(addItem(res.data))
         }).catch(Error())
         
-export default function dummyReducer (state=initialExpense, action) {
+export default function dummyReducer (state=null, action) {
     switch(action.type){
-        // case ADD_ITEM:
-        //     console.log('working??')
+        case ADD_ITEM:
+             console.log('working??')
         //     // const itemsCopy = [...items]
         //     // itemsCopy.push(item)
         //     // return {...state, items: itemsCopy}

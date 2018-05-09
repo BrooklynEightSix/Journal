@@ -9,12 +9,11 @@ import ExpenseForm from './ExpenseForm'
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email} = props
-
+  const {email, userId} = props
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      <ExpenseForm />
+      <ExpenseForm userId={userId}/>
     </div>
   )
 }
