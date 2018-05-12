@@ -19,7 +19,6 @@
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/journal-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require ignore-styles --compilers js:babel-register",
     "test-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/journal-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/**/*.spec.js --compilers js:babel-register --require ignore-styles -w",
     "test-client-watch": "NODE_ENV='test' mocha ./client/**/**/*.spec.js --compilers js:babel-register  --require ignore-styles -w"
-    
   },
   "repository": {
     "type": "git",

@@ -12,30 +12,37 @@ let initialExpense = {
 // })
 
 //**Action type
-const ADD_ITEM = 'ADD_ITEM';
+//const ADD_ITEM = 'ADD_ITEM'
+const GET_ITEM ='GET_ITEM'
 
 //**Action creator
-const addItem = (item)=>{
-    type:ADD_ITEM,
-    item
-}
+// const addItem = (item)=>{
+//     type:ADD_ITEM,
+//     item
+// }
+const getItem = item => ({type: GET_ITEM, item})
 
 export const addExpenseItem = (user, item, price) =>
-    dispatch => 
-        axios.post(`/api/expense/add`, {user, item, price})
+    dispatch =>
+        axios.post(`/api/expenses/add`, {user, item, price})
         .then(res=>{
-            dispatch(addItem(res.data))
-        }).catch(Error())
-        
-export default function dummyReducer (state=null, action) {
+            dispatch(getItem(res.data))
+        }, itemError =>{
+            dispatch(getItem({error:itemError}))
+        })
+        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+
+export default function (state=initialExpense, action) {
     switch(action.type){
-        case ADD_ITEM:
+        case GET_ITEM:
              console.log('working??')
+             return action.item
         //     // const itemsCopy = [...items]
         //     // itemsCopy.push(item)
         //     // return {...state, items: itemsCopy}
         //     return action.item
 
-        default: state
+        default:
+        return state
     }
 }

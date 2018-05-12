@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import addExpenseItem from '../store/expense'
+import {addExpenseItem} from '../store'
 
 const ExpenseForm = (props)=> {
     const {handleSubmit,userId} = props
@@ -12,14 +12,14 @@ const ExpenseForm = (props)=> {
                     <input type='float' name='price' placeholder='price' />
                     <button name='userId' value={userId} type='submit'>Submit</button>
                 </form>
-                
+
             </div>
         );
 }
 
 const mapToState = (state) =>{
 return {
-    
+
     }
 }
 
