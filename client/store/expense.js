@@ -12,19 +12,17 @@ let initialExpense = {
 // })
 
 //**Action type
-//const ADD_ITEM = 'ADD_ITEM'
+
 const GET_ITEM ='GET_ITEM'
 
 //**Action creator
-// const addItem = (item)=>{
-//     type:ADD_ITEM,
-//     item
-// }
+
 const getItem = item => ({type: GET_ITEM, item})
 
-export const addExpenseItem = (user, item, price) =>
+//**Thunk 
+export const addExpenseItem = (userId, item, price) =>
     dispatch =>
-        axios.post(`/api/expenses/add`, {user, item, price})
+        axios.post(`/api/expenses/add`, {userId, item, price})
         .then(res=>{
             dispatch(getItem(res.data))
         }, itemError =>{
@@ -35,7 +33,6 @@ export const addExpenseItem = (user, item, price) =>
 export default function (state=initialExpense, action) {
     switch(action.type){
         case GET_ITEM:
-             console.log('working??')
              return action.item
         //     // const itemsCopy = [...items]
         //     // itemsCopy.push(item)
@@ -43,6 +40,6 @@ export default function (state=initialExpense, action) {
         //     return action.item
 
         default:
-        return state
+            return state
     }
 }

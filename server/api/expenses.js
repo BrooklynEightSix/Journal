@@ -6,7 +6,6 @@ router.get('/', (req, res, next) => {
   Expenses
     .findAll()
     .then(item => {
-      console.log(item)
       res.json(item)
     })
     .catch(next)
@@ -17,6 +16,7 @@ router.post('/add', (req,res,next)=>{
   .create(req.body)
   .then(item => {
     console.log('trying to create ', item)
+    res.json(item)
   })
 
 }
