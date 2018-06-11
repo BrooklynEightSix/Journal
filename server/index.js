@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 
+//GraphQL stuff
 const graphqlHTTP = require('express-graphql')
+const {user, password} = require('../secrets')
+const mongoose = require('mongoose')
 const schema = require('./schema')
 module.exports = app
 
@@ -57,6 +60,12 @@ const createApp = () => {
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
+
+  //Graph ql
+  mongoose.connect(`mongodb://${user}:${password}@ds127389.mlab.com:27389/gql-journal`)
+  mongoose.connection.once('open', ()=>{
+    console.log('connected to mongodb databasessss')
+  })
   app.use('/graphql', graphqlHTTP({
     schema,
     graphiql:true
