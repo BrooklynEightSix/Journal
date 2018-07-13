@@ -15,7 +15,6 @@ router.post('/add', (req,res,next)=>{
   Expenses
   .create(req.body)
   .then(item => {
-    console.log('trying to create ', item)
     res.json(item)
   })
 

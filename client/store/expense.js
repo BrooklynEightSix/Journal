@@ -30,15 +30,22 @@ export const addExpenseItem = (userId, item, price) =>
         })
         .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
+export const getItems = ()=> dispatch => 
+        axios.get('/api/expenses')
+        .then(res=> res.data)
+        .then(item => {
+          dispatch(getItem(item))
+        })
+        .catch(err => console.log('Getting events unsuccessful', err))
+
 export default function (state=initialExpense, action) {
     switch(action.type){
         case GET_ITEM:
-             return action.item
+             return {...state, ...action.item}
         //     // const itemsCopy = [...items]
         //     // itemsCopy.push(item)
         //     // return {...state, items: itemsCopy}
         //     return action.item
-
         default:
             return state
     }

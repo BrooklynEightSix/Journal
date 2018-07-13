@@ -9,7 +9,8 @@ import ExpenseForm from './ExpenseForm'
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email, userId} = props
+  const {email, userId, expenses} = props
+  console.log(expenses.length)
   return (
     <div>
       <h3>Welcome, {email}</h3>

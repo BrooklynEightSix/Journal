@@ -61,7 +61,7 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
-  //Graph ql
+  //Graph ql and mlab database
   mongoose.connect(`mongodb://${user}:${password}@ds127389.mlab.com:27389/gql-journal`)
   mongoose.connection.once('open', ()=>{
     console.log('connected to mongodb databasessss')
