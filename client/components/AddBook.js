@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { graphql } from 'react-apollo'
-import {getAuthorsQuery} from '../queries'
+import { graphql, compose } from 'react-apollo'
+import {getAuthorsQuery,getBooksQuery, addBookMutation} from '../queries'
 
 class AddBook extends Component {
   constructor(props){
@@ -16,7 +16,8 @@ class AddBook extends Component {
   }
 
   displayAuthors(){
-    let data = this.props.data
+    let data = this.props.getAuthorsQuery
+    
     if(data.loading){
       return( <option disabled>Loading authors...</option> )
     } else {
@@ -28,7 +29,15 @@ class AddBook extends Component {
   
   onSubmit(event){
     event.preventDefault()
-    console.log(this.state)
+    //mutation -> variables
+    this.props.addBookMutation({
+      variables:{
+        name:this.state.title,
+        genre:this.state.genre,
+        authorId:this.state.authorId
+      },
+      refetchQueries:[{query:getBooksQuery}] //apply another query
+    })
   }
 
   render() {
@@ -60,5 +69,9 @@ class AddBook extends Component {
   }
 }
 
-export default graphql(getAuthorsQuery)(AddBook)
+//compose queries
+export default compose(
+  graphql(getAuthorsQuery,{name:"getAuthorsQuery"}),
+  graphql(addBookMutation, {name:"addBookMutation"})
+)(AddBook)
 //note you can also give it a name, ex: getBooksQuery,{name: "getBooksQuery"} -> this.props.getBooksQuery

@@ -1,7 +1,7 @@
 const graphql = require('graphql')
 const _ = require('lodash') 
-const Book = require('../models/book')
-const Author = require('../models/author')
+const bcrypt = require('bcrypt')
+const {Author, Book, User, Expense, WaterIntake} = require('../models')
 
 const {
   GraphQLObjectType, 
@@ -10,8 +10,19 @@ const {
   GraphQLID, //Example: "1" or 1 Note-JS still sees as string
   GraphQLInt,
   GraphQLList,
-  GraphQLNonNull//required for non-null fields
+  GraphQLNonNull//required for non-null fields,
 } = graphql
+
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  fields: ()=>({
+    id:{type:GraphQLID},
+    username:{type: GraphQLString},
+    password:{type: GraphQLString},
+    firstName:{type:GraphQLString},
+    lastName:{type:GraphQLString}
+  })
+})
 
 const BookType = new GraphQLObjectType({
   name:'Book',
@@ -47,6 +58,22 @@ const AuthorType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({ // this jumps into the graph
   name: 'RootQueryType',
   fields:{
+    user:{
+      type: UserType,
+      args:{username:{type:GraphQLString}, password:{type:GraphQLString}},
+      resolve(parent, args){
+       return User.findOne({username:args.username})
+       .then(user=>{
+         if(user && bcrypt.compareSync(args.password,user.password )){
+          return user  
+         }
+         throw new Error("wrong password")
+       })
+       .catch(err=>console.log(err))
+        
+        
+      }
+    },
     book:{
       type: BookType, 
       args:{id:{type: GraphQLID}}, // this must match whatever type you set id to previously
@@ -94,7 +121,7 @@ const Mutation = new GraphQLObjectType({
               let author = new Author({
                   name: args.name,
                   age: args.age
-              });
+              })
               return author.save()
           }
       },
@@ -112,6 +139,26 @@ const Mutation = new GraphQLObjectType({
             authorId: args.authorId
           })
           return book.save()
+        }
+      },
+      addUser:{
+        type: UserType,
+        args:{
+          username: {type: new GraphQLNonNull(GraphQLString)},
+          password: {type: new GraphQLNonNull(GraphQLString)},
+          firstName: {type: new GraphQLNonNull(GraphQLString)},
+          lastName: {type: new GraphQLNonNull(GraphQLString)}
+        },
+        resolve (parent, args){
+          let salt = bcrypt.genSaltSync(10)
+          let hashedpw = bcrypt.hashSync(args.password, salt)
+          let user = new User({
+            username: args.username,
+            password: hashedpw,
+            firstName: args.firstName,
+            lastName: args.lastName
+          })
+          return user.save()
         }
       }
   }
