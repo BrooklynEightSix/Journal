@@ -70,8 +70,6 @@ const RootQuery = new GraphQLObjectType({ // this jumps into the graph
          throw new Error("wrong password")
        })
        .catch(err=>console.log(err))
-        
-        
       }
     },
     book:{
