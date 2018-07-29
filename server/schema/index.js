@@ -58,20 +58,6 @@ const AuthorType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({ // this jumps into the graph
   name: 'RootQueryType',
   fields:{
-    user:{
-      type: UserType,
-      args:{username:{type:GraphQLString}, password:{type:GraphQLString}},
-      resolve(parent, args){
-       return User.findOne({username:args.username})
-       .then(user=>{
-         if(user && bcrypt.compareSync(args.password,user.password )){
-          return user  
-         }
-         throw new Error("wrong password")
-       })
-       .catch(err=>console.log(err))
-      }
-    },
     book:{
       type: BookType, 
       args:{id:{type: GraphQLID}}, // this must match whatever type you set id to previously
@@ -109,6 +95,21 @@ const RootQuery = new GraphQLObjectType({ // this jumps into the graph
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    login:{
+      type: UserType,
+      args:{username:{type:new GraphQLNonNull(GraphQLString)}, password:{type:new GraphQLNonNull(GraphQLString)}},
+      resolve(parent, args){
+        //Simple authorization using bcrypt Sync
+       return User.findOne({username:args.username})
+       .then(user=>{
+         if(user && bcrypt.compareSync(args.password,user.password )){
+          return user  
+         }
+         throw new Error("wrong password")
+       })
+       .catch(err=>console.log(err))
+      }
+    },
       addAuthor: {
           type: AuthorType,
           args: {
@@ -148,6 +149,7 @@ const Mutation = new GraphQLObjectType({
           lastName: {type: new GraphQLNonNull(GraphQLString)}
         },
         resolve (parent, args){
+          //encrypt using bcrypt sync
           let salt = bcrypt.genSaltSync(10)
           let hashedpw = bcrypt.hashSync(args.password, salt)
           let user = new User({

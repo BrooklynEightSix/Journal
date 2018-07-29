@@ -1,16 +1,12 @@
 import React from 'react'
 
-import {Navbar} from './components'
-import Routes from './routes'
+import GqlLogin from './components/gql-auth-form'
 
-
-const App = () => {
-  return (
+const App = ()=>{
+  return(
     <div>
-      <Navbar />
-      <Routes />
+      <GqlLogin/>
     </div>
   )
 }
-
 export default App
